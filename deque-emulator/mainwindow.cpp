@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "algo.h"
-#include <QTextStream>
 #include <algorithm>
 #include <random>
 MainWindow::MainWindow(QWidget *parent)
