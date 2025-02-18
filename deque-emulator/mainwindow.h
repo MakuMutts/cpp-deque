@@ -23,8 +23,6 @@ public:
 
 private slots:
 
-
-
     void on_btn_pop_back_clicked();
 
     void on_pb_clear_clicked();
@@ -46,8 +44,6 @@ private slots:
     void on_pb_edit_clicked();
 
     void on_list_widget_currentRowChanged(int currentRow);
-
-
 
     void on_btn_resize_clicked();
 
@@ -86,11 +82,10 @@ private:
 
     void ApplyIterator();
 
-
-
 private:
     Model deque_model_;
     std::mt19937 new_random_gen;
+    int max_lenght = 1000;
     Ui::MainWindow *ui;
 
 };

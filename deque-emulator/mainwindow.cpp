@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "algo.h"
-#include <QMessageBox>
-#include <QFileDialog>
-#include <QFile>
 #include <QTextStream>
 #include <algorithm>
 #include <random>
@@ -239,7 +236,7 @@ void MainWindow::on_list_widget_currentRowChanged(int currentRow) {
 void MainWindow::on_btn_resize_clicked()
 {
     int s = ui->txt_size->text().toInt();
-    if(s < 1000){
+    if(s < max_lenght){
         deque_model_.items.resize(s);
         deque_model_.iterator = deque_model_.items.begin();
         ApplyModel();
@@ -259,8 +256,8 @@ void MainWindow::on_btn_count_clicked()
 
 void MainWindow::on_btn_find_clicked()
 {
-    std::string s = ui->txt_elem_content->text().toStdString();
-    auto it = std::find(deque_model_.items.begin(), deque_model_.items.end(), s);
+    std::string find_txt = ui->txt_elem_content->text().toStdString();
+    auto it = std::find(deque_model_.items.begin(), deque_model_.items.end(), find_txt);
     deque_model_.iterator = it;
     ApplyIterator();
 }
@@ -285,9 +282,7 @@ void MainWindow::on_pb_max_clicked()
 void MainWindow::on_btn_merge_sort_clicked()
 {
     deque_model_.items = MergeSort(deque_model_.items, std::less());
-
     deque_model_.iterator = deque_model_.items.begin();
-
     ApplyModel();
 }
 
@@ -301,9 +296,7 @@ void MainWindow::on_btn_merge_sOrT_clicked()
             [](char c1, char c2) { return std::tolower(c1) < std::tolower(c2); }
             );
     });
-
     deque_model_.iterator = deque_model_.items.begin();
-
     ApplyModel();
 
 
@@ -312,17 +305,12 @@ void MainWindow::on_btn_merge_sOrT_clicked()
 
 void MainWindow::on_brn_unique_clicked()
 {
-
     if(std::is_sorted(deque_model_.items.begin(), deque_model_.items.end())){
-
         auto last = std::unique(deque_model_.items.begin(), deque_model_.items.end());
         deque_model_.items.erase(last, deque_model_.items.end());
         deque_model_.iterator = deque_model_.items.begin();
-
     }
-
     ApplyModel();
-
 }
 
 
@@ -340,30 +328,19 @@ void MainWindow::on_btn_reverse_clicked()
 }
 
 
-
-
-
-
-
 void MainWindow::on_brn_lower_bound_clicked()
 {
-
-
     if (std::is_sorted(deque_model_.items.begin(), deque_model_.items.end())) {
         std::string str = ui->txt_elem_content->text().toStdString();
         auto lower = std::lower_bound(deque_model_.items.begin(), deque_model_.items.end(), str);
         deque_model_.iterator = lower;
         ApplyModel();
     }
-
-
-
 }
 
 
 void MainWindow::on_btn_upper_bound_clicked()
 {
-
     if (std::is_sorted(deque_model_.items.begin(), deque_model_.items.end())) {
         std::string str = ui->txt_elem_content->text().toStdString();
         auto upper = std::upper_bound(deque_model_.items.begin(), deque_model_.items.end(), str);
@@ -371,7 +348,4 @@ void MainWindow::on_btn_upper_bound_clicked()
         ApplyModel();
     }
 
-
-
 }
-
